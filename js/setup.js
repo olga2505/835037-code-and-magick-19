@@ -23,19 +23,21 @@ var colorFireball = document.querySelector('.setup-fireball-wrap');
 var changeFillColor = function (element, item) { // изменение цвета глаз, мантии (fill)
   var color = getRandomElement(item);
   element.style.fill = color;
+  setupForm.querySelector('input[name="coat-color"]').value = color;
 };
 
 var changeBackgroundColor = function (element, item) { // изменение цвета фаербола (backgroundColor)
   var color = getRandomElement(item);
   element.style.backgroundColor = color;
+  setupForm.querySelector('input[name="eyes-color"]').value = color;
 };
 
 colorCoat.addEventListener('click', function () {
-  setupForm.querySelector('input[name="coat-color"]').value = changeFillColor(colorCoat, COAT_COLORS);
+  changeFillColor(colorCoat, COAT_COLORS);
 });
 
 colorEyes.addEventListener('click', function () {
-  setupForm.querySelector('input[name="eyes-color"]').value = changeFillColor(colorEyes, EYES_COLORS);
+  changeFillColor(colorEyes, EYES_COLORS);
 });
 
 colorFireball.addEventListener('click', function () {
