@@ -1,5 +1,6 @@
 'use strict';
 
+var MIN_NAME_LENGTH = 2;
 var FIRST_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb (215, 210, 55)', 'rgb (0, 0, 0)'];
@@ -77,15 +78,16 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-inputNameWizard.addEventListener('invalid', function () {
-  if (inputNameWizard.validity.tooShort) {
-    inputNameWizard.setCustomValidity('Имя должно состоять минимум из 2-х символов');
-  } else if (inputNameWizard.validity.tooLong) {
-    inputNameWizard.setCustomValidity('Имя не должно превышать 25-ти символов');
-  } else if (inputNameWizard.validity.valueMissing) {
-    inputNameWizard.setCustomValidity('Обязательное поле');
+inputNameWizard.addEventListener('input', function (evt) {
+  var target = evt.target;
+  if (target.value.length < MIN_NAME_LENGTH) {
+    target.setCustomValidity(
+        'Имя должно состоять минимум из ' +
+      MIN_NAME_LENGTH +
+      '-х символов'
+    );
   } else {
-    inputNameWizard.setCustomValidity('');
+    target.setCustomValidity('');
   }
 });
 
@@ -120,7 +122,6 @@ var renderWizard = function (wizard) {
 
   return wizardElement;
 };
-
 
 var renderWizards = function (wizards) {
   var fragment = document.createDocumentFragment();
